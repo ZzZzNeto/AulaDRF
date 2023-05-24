@@ -17,6 +17,33 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf.urls import include
+from rest_framework import routers
+
+from core.api.viewsets import TurmaViewSet, AlunoViewSet, TesteViewSet
+
+router = routers.SimpleRouter()
+router.register('turmas', TurmaViewSet)
+router.register('alunos', AlunoViewSet)
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
+from core.api.viewsets import GoogleLoginView
+
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/google/', GoogleLoginView.as_view(), name='google_login'),
+]
+
+urlpatterns += [
     path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
+    path("teste/", TesteViewSet.as_view(), name="teste"),
 ]

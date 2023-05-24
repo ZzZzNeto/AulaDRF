@@ -10,5 +10,6 @@ class Turma(models.Model):
 class Aluno(models.Model):
     nome = models.CharField(max_length=150)
     matricula = models.CharField(max_length=10, unique=True)
+    data_de_nascimento = models.DateField()
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     

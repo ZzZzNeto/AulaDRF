@@ -7,27 +7,6 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from datetime import datetime
 
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from dj_rest_auth.registration.views import SocialLoginView
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-class GoogleLoginView(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
-    # client_class = OAuth2Client
-
-    # def get_response(self):
-    #     self.user = self.get_object()
-    #     refresh = RefreshToken.for_user(self.user)
-
-    #     data = {
-    #         'refresh': str(refresh),
-    #         'access': str(refresh.access_token),
-    #     }
-
-    #     return Response(data)
-
 class TurmaViewSet(ModelViewSet):
     queryset = Turma.objects.all()
     serializer_class = TurmaSerializer
